@@ -3309,7 +3309,7 @@ package body ScoreBoardPkg_slv is
   end procedure Deallocate ;
 
   procedure Initialize (
-    -- constant ID     : in  ScoreboardIDType
+    constant ID     : in  ScoreboardIDType -- vhdl-linter-disable-line unused
   ) is
   begin
     ScoreboardStore.Initialize ;
