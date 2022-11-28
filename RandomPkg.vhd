@@ -53,25 +53,25 @@
 --    12/2006 :  0.1        Initial revision
 --
 --  This file is part of OSVVM.
---  
---  Copyright (c) 2006 - 2021 by SynthWorks Design Inc.  
---  Copyright (C) 2021 by OSVVM Authors   
---  
+--
+--  Copyright (c) 2006 - 2021 by SynthWorks Design Inc.
+--  Copyright (C) 2021 by OSVVM Authors
+--
 --  Licensed under the Apache License, Version 2.0 (the "License");
 --  you may not use this file except in compliance with the License.
 --  You may obtain a copy of the License at
---  
+--
 --      https://www.apache.org/licenses/LICENSE-2.0
---  
+--
 --  Unless required by applicable law or agreed to in writing, software
 --  distributed under the License is distributed on an "AS IS" BASIS,
 --  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 --  See the License for the specific language governing permissions and
 --  limitations under the License.
---  
+--
 
-use work.OsvvmGlobalPkg.all ; 
-use work.AlertLogPkg.all ; 
+use work.OsvvmGlobalPkg.all ;
+use work.AlertLogPkg.all ;
 use work.RandomBasePkg.all ;
 use work.SortListPkg_int.all ;
 
@@ -106,17 +106,17 @@ package RandomPkg is
   type NaturalVBoolType is array (boolean range <>) of natural;
   type NaturalVSlType   is array (std_logic range <>) of natural;
   type NaturalVBitType  is array (bit range <>) of natural;
-  
+
 
   --- ///////////////////////////////////////////////////////////////////////////
   --- ///////////////////////////////////////////////////////////////////////////
-  ---   
+  ---
   ---  RandomPType
-  ---   
+  ---
   --- ///////////////////////////////////////////////////////////////////////////
   --- ///////////////////////////////////////////////////////////////////////////
   type RandomPType is protected
-  
+
     --- ///////////////////////////////////////////////////////////////////////////
     ---
     --- Parameter Settings
@@ -415,7 +415,7 @@ package body RandomPkg is
   --- RandomPType Body
   --- ///////////////////////////////////////////////////////////////////////////
   type RandomPType is protected body
-  
+
     variable RandomSeed : RandomSeedType := OldGenRandSeed(integer_vector'(1,7)) ;
 
     --- ///////////////////////////////////////////////////////////////////////////
@@ -424,12 +424,12 @@ package body RandomPkg is
     ---
     --- ///////////////////////////////////////////////////////////////////////////
     -----------------------------------------------------------------
-    impure function Uniform return real is 
+    impure function Uniform return real is
     -----------------------------------------------------------------
-      variable rRandom : real ; 
+      variable rRandom : real ;
     begin
       ieee.math_real.Uniform (RandomSeed(RandomSeed'left), RandomSeed(RandomSeed'right), rRandom) ;
-      return rRandom ; 
+      return rRandom ;
     end function Uniform ;
 
     --- ///////////////////////////////////////////////////////////////////////////
@@ -462,15 +462,15 @@ package body RandomPkg is
         RandomSeed := OldGenRandSeed(I) ;
       end if ;
     end procedure InitSeed ;
-    
+
     ------------------------------------------------------------
-    procedure InitSeed (T : time ; UseNewSeedMethods : boolean := TRUE ) is
+    procedure InitSeed (T : time ; UseNewSeedMethods : boolean := TRUE ) is -- vhdl-linter-disable-line unused
     ------------------------------------------------------------
       variable ChurnSeed : real ;
     begin
-      -- Allow specification of UseNewSeedMethods 
+      -- Allow specification of UseNewSeedMethods
       -- but ignore it as this is a new method and will churn the seed.
-      -- Let integer values roll over - is well supported, infact, 
+      -- Let integer values roll over - is well supported, infact,
       -- math_real.uniform depends on it being supported.
       -- Also considered:
       --      RandomSeed := GenRandSeed((T REM (2**30 * std.env.resolution_limit))/std.env.resolution_limit) ;
@@ -640,7 +640,7 @@ package body RandomPkg is
         return Max ;
       end if;
     end function CheckMinMax ;
-    
+
     --- ///////////////////////////////////////////////////////////////////////////
     ---
     --- Base Randomization Distributions
@@ -703,9 +703,9 @@ package body RandomPkg is
     ------------------------------------------------------------
     impure function Uniform (Min, Max : integer ; Exclude : integer_vector) return integer is
     ------------------------------------------------------------
-      constant CkMax : integer := CheckMinMax("Uniform", Min, Max) ;
+      -- constant CkMax : integer := CheckMinMax("Uniform", Min, Max) ;
     begin
-      return LocalUniform (Min, Max, Exclude) ; 
+      return LocalUniform (Min, Max, Exclude) ;
     end function Uniform ;
 
 
@@ -849,11 +849,11 @@ package body RandomPkg is
       variable rRandomVal : real ;
     begin
       if Max < Min then
-         Alert(OSVVM_RANDOM_ALERTLOG_ID, 
+         Alert(OSVVM_RANDOM_ALERTLOG_ID,
            "RandomPkg.Normal: Min: " & to_string(Min, 2) &
-               " >  Max: " & to_string(Max, 2),  
+               " >  Max: " & to_string(Max, 2),
            FAILURE) ;
-         return Mean ; 
+         return Mean ;
       else
         loop
           rRandomVal := Normal (Mean, StdDeviation) ;
@@ -871,14 +871,14 @@ package body RandomPkg is
       StdDeviation  : real ;
       Min           : integer ;
       Max           : integer ;
-      Exclude       : integer_vector := NULL_INTV
+      Exclude       : integer_vector := NULL_INTV -- vhdl-linter-disable-line unused
     ) return integer is
       variable iRandomVal : integer ;
     begin
       if Max < Min then
-        Alert(OSVVM_RANDOM_ALERTLOG_ID, 
+        Alert(OSVVM_RANDOM_ALERTLOG_ID,
           "RandomPkg.Normal: Min: " & to_string(Min) &
-             " >  Max: " & to_string(Max),  
+             " >  Max: " & to_string(Max),
           FAILURE) ;
         return integer(round(Mean)) ;
       else
@@ -932,11 +932,11 @@ package body RandomPkg is
       variable rRandomVal : real ;
     begin
       if Max < Min then
-        Alert(OSVVM_RANDOM_ALERTLOG_ID, 
+        Alert(OSVVM_RANDOM_ALERTLOG_ID,
            "RandomPkg.Poisson: Min: " & to_string(Min, 2) &
-               " >  Max: " & to_string(Max, 2),  
-           FAILURE) ;        
-        return Mean ; 
+               " >  Max: " & to_string(Max, 2),
+           FAILURE) ;
+        return Mean ;
       else
         loop
           rRandomVal := Poisson (Mean) ;
@@ -952,16 +952,16 @@ package body RandomPkg is
       Mean          : real ;
       Min           : integer ;
       Max           : integer ;
-      Exclude       : integer_vector := NULL_INTV
+      Exclude       : integer_vector := NULL_INTV -- vhdl-linter-disable-line unused
     ) return integer is
       variable iRandomVal : integer ;
     begin
       if Max < Min then
-        Alert(OSVVM_RANDOM_ALERTLOG_ID, 
+        Alert(OSVVM_RANDOM_ALERTLOG_ID,
            "RandomPkg.Poisson: Min: " & to_string(Min) &
-               " >  Max: " & to_string(Max),  
-           FAILURE) ;        
-        return integer(round(Mean)) ; 
+               " >  Max: " & to_string(Max),
+           FAILURE) ;
+        return integer(round(Mean)) ;
       else
         loop
           iRandomVal := integer(round(  Poisson (Mean)  )) ;
@@ -971,7 +971,7 @@ package body RandomPkg is
       end if ;
       return iRandomVal ;
     end function  Poisson ;
-    
+
 
     --- ///////////////////////////////////////////////////////////////////////////
     --
@@ -994,7 +994,7 @@ package body RandomPkg is
           return integer'low ;
       end case ;
     end function LocalRandInt ;
-    
+
     ------------------------------------------------------------
     impure function RandInt (Min, Max : integer) return integer is
     ------------------------------------------------------------
@@ -1043,14 +1043,14 @@ package body RandomPkg is
     impure function RandIntV (Min, Max : integer ; Unique : natural ; Size : natural) return integer_vector is
     ------------------------------------------------------------
       variable result : integer_vector(1 to Size) ;
-      variable iUnique : natural ; 
+      variable iUnique : natural ;
     begin
       -- if Unique = 0, it is more efficient to call RandIntV(Min, Max, Size)
-      iUnique := Unique ; 
+      iUnique := Unique ;
       if Max-Min+1 < Unique then
         Alert(OSVVM_RANDOM_ALERTLOG_ID, "RandomPkg.(RandIntV | RandRealV | RandTimeV): Unique > number of values available", FAILURE) ;
-        iUnique := Max-Min+1 ; 
-      end if ; 
+        iUnique := Max-Min+1 ;
+      end if ;
       for i in result'range loop
         result(i) := RandInt(Min, Max, result(maximum(1, 1 + i - iUnique) to Size)) ;
       end loop ;
@@ -1078,7 +1078,7 @@ package body RandomPkg is
     ------------------------------------------------------------
       constant CkMax : real := CheckMinMax("RandReal", Min, Max) ;
     begin
-      return LocalRandReal(Min, CkMax) ; 
+      return LocalRandReal(Min, CkMax) ;
     end function RandReal ;
 
     ------------------------------------------------------------
@@ -1122,14 +1122,14 @@ package body RandomPkg is
       end loop ;
       return result ;
     end function RandTimeV ;
-    
+
     ------------------------------------------------------------
     impure function RandTimeV (Min, Max : time ; Unique : natural ; Size : natural ; Unit : time := ns) return time_vector is
     ------------------------------------------------------------
       constant CkMax  : time := CheckMinMax("RandTimeV", Min, Max) ;
     begin
       -- if Unique = 0, it is more efficient to call RandTimeV(Min, Max, Size)
-      return to_time_vector(RandIntV(Min/Unit, CkMax/Unit, Unique, Size), Unit) ; 
+      return to_time_vector(RandIntV(Min/Unit, CkMax/Unit, Unique, Size), Unit) ;
     end function RandTimeV ;
 
 
@@ -1216,8 +1216,8 @@ package body RandomPkg is
     ------------------------------------------------------------
     impure function RandTime (Min, Max : time ; Exclude : time_vector ; Unit : time := ns) return time is
     ------------------------------------------------------------
-      variable IntVal : integer ;
-      constant CkMax  : time := CheckMinMax("RandTime", Min, Max) ;
+      -- variable IntVal : integer ;
+      -- constant CkMax  : time := CheckMinMax("RandTime", Min, Max) ;
     begin
       --  if Min or Max > 2**31 value will be out of range
       return RandInt(Min/Unit, Max/Unit, to_integer_vector(Exclude, Unit)) * Unit ;
@@ -1228,7 +1228,7 @@ package body RandomPkg is
     ------------------------------------------------------------
       constant CkMax  : time := CheckMinMax("RandTimeV", Min, Max) ;
     begin
-      return to_time_vector( RandIntV(Min/Unit, CkMax/Unit, to_integer_vector(Exclude, Unit), Size), Unit ) ; 
+      return to_time_vector( RandIntV(Min/Unit, CkMax/Unit, to_integer_vector(Exclude, Unit), Size), Unit ) ;
     end function RandTimeV ;
 
     ------------------------------------------------------------
@@ -1237,7 +1237,7 @@ package body RandomPkg is
       constant CkMax  : time := CheckMinMax("RandTimeV", Min, Max) ;
     begin
       -- if Unique = 0, it is more efficient to call RandIntV(Min, Max, Size)
-      return to_time_vector( RandIntV(Min/Unit, CkMax/Unit, to_integer_vector(Exclude, Unit), Unique, Size), Unit ) ; 
+      return to_time_vector( RandIntV(Min/Unit, CkMax/Unit, to_integer_vector(Exclude, Unit), Unique, Size), Unit ) ;
     end function RandTimeV ;
 
 
@@ -1307,15 +1307,15 @@ package body RandomPkg is
     impure function RandIntV (A : integer_vector ; Unique : natural ; Size : natural) return integer_vector is
     ------------------------------------------------------------
       variable result : integer_vector(1 to Size) ;
-      variable iUnique : natural ; 
+      variable iUnique : natural ;
     begin
       -- if Unique = 0, it is more efficient to call RandIntV(A, Size)
       -- require A'length >= Unique
-      iUnique := Unique ; 
+      iUnique := Unique ;
       if A'length < Unique then
         Alert(OSVVM_RANDOM_ALERTLOG_ID, "RandomPkg.RandIntV: Unique > length of set of values", FAILURE) ;
-        iUnique := A'length ; 
-      end if ; 
+        iUnique := A'length ;
+      end if ;
       for i in result'range loop
         result(i) := RandInt(A, result(maximum(1, 1 + i - iUnique) to Size)) ;
       end loop ;
@@ -1467,11 +1467,11 @@ package body RandomPkg is
       -- Remove Exclude from A
       RemoveExclude(A, Exclude, NewA, NewALength) ;
       -- Require NewALength >= Unique
-      iUnique := Unique ; 
-      if NewALength < Unique then 
+      iUnique := Unique ;
+      if NewALength < Unique then
         Alert(OSVVM_RANDOM_ALERTLOG_ID, "RandomPkg.RandIntV: Unique > Length of Set A - Exclude", FAILURE) ;
-        iUnique := NewALength ; 
-      end if ; 
+        iUnique := NewALength ;
+      end if ;
       -- Randomize using exclude list of Unique # of newly generated values
       for i in result'range loop
         result(i) := RandInt(NewA(1 to NewALength), result(maximum(1, 1 + i - iUnique) to Size)) ;
@@ -1506,11 +1506,11 @@ package body RandomPkg is
       -- Remove Exclude from A
       RemoveExclude(A, Exclude, NewA, NewALength) ;
       -- Require NewALength >= Unique
-      iUnique := Unique ; 
-      if NewALength < Unique then 
+      iUnique := Unique ;
+      if NewALength < Unique then
         Alert(OSVVM_RANDOM_ALERTLOG_ID, "RandomPkg.RandRealV: Unique > Length of Set A - Exclude", FAILURE) ;
-        iUnique := NewALength ; 
-      end if ; 
+        iUnique := NewALength ;
+      end if ;
       -- Randomize using exclude list of Unique # of newly generated values
       for i in result'range loop
         result(i) := RandReal(NewA(1 to NewALength), result(maximum(1, 1 + i - iUnique) to Size)) ;
@@ -1545,11 +1545,11 @@ package body RandomPkg is
       -- Remove Exclude from A
       RemoveExclude(A, Exclude, NewA, NewALength) ;
       -- Require NewALength >= Unique
-      iUnique := Unique ; 
-      if NewALength < Unique then 
+      iUnique := Unique ;
+      if NewALength < Unique then
         Alert(OSVVM_RANDOM_ALERTLOG_ID, "RandomPkg.RandTimeV: Unique > Length of Set A - Exclude", FAILURE) ;
-        iUnique := NewALength ; 
-      end if ; 
+        iUnique := NewALength ;
+      end if ;
       -- Randomize using exclude list of Unique # of newly generated values
       for i in result'range loop
         result(i) := RandTime(NewA(1 to NewALength), result(maximum(1, 1 + i - iUnique) to Size)) ;
@@ -1623,7 +1623,7 @@ package body RandomPkg is
     begin
       for i in Weight'range loop
         FullWeight(boolean'pos(i)) := Weight(i) ;
-      end loop ; 
+      end loop ;
       return boolean'val(DistInt(FullWeight)) ;
     end function DistBool ;
 
@@ -1634,7 +1634,7 @@ package body RandomPkg is
     begin
       for i in Weight'range loop
         FullWeight(std_logic'pos(i)) := Weight(i) ;
-      end loop ; 
+      end loop ;
       return std_logic'val(DistInt(FullWeight)) ;
     end function DistSl ;
 
@@ -1645,7 +1645,7 @@ package body RandomPkg is
     begin
       for i in Weight'range loop
         FullWeight(bit'pos(i)) := Weight(i) ;
-      end loop ; 
+      end loop ;
       return bit'val(DistInt(FullWeight)) ;
     end function DistBit ;
 
@@ -1819,13 +1819,13 @@ package body RandomPkg is
     ------------------------------------------------------------
       alias normA : unsigned (A'length downto 1) is A ;
     begin
-      for i in normA'range loop 
-        if normA(i) = '1' then 
-          return i ; 
-        end if ; 
+      for i in normA'range loop
+        if normA(i) = '1' then
+          return i ;
+        end if ;
       end loop ;
-      return -1 ; 
-    end function SizeByLeftMostBit ; 
+      return -1 ;
+    end function SizeByLeftMostBit ;
 
     ------------------------------------------------------------
     impure function RandUnsigned (Max : unsigned) return unsigned is
@@ -1987,14 +1987,14 @@ package body RandomPkg is
     begin
       return std_logic'val(RandInt(8));
     end function RandSl ;
-  
+
     ------------------------------------------------------------
     impure function RandBit return bit is
     ------------------------------------------------------------
     begin
       return bit'val(RandInt(1));
     end function RandBit ;
-  
+
   end protected body RandomPType ;
 
 end RandomPkg ;

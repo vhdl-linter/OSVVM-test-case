@@ -86,17 +86,17 @@ library ieee ;
 
 package ScoreBoardPkg_slv is
 --  generic (
---    type ExpectedType ; 
---    type ActualType ; 
+--    type ExpectedType ;
+--    type ActualType ;
 --    function Match(Actual : ActualType ;                           -- defaults
 --                   Expected : ExpectedType) return boolean ;       -- is "=" ;
 --    function expected_to_string(A : ExpectedType) return string ;  -- is to_string ;
---    function actual_to_string  (A : ActualType) return string      -- is to_string ; 
---  ) ; 
+--    function actual_to_string  (A : ActualType) return string      -- is to_string ;
+--  ) ;
 
---   --  For a VHDL-2002 package, comment out the generics and 
+--   --  For a VHDL-2002 package, comment out the generics and
 --   --  uncomment the following, it replaces a generic instance of the package.
---   --  As a result, you will have multiple copies of the entire package. 
+--   --  As a result, you will have multiple copies of the entire package.
 --   --  Inconvenient, but ok as it still works the same.
   subtype ExpectedType is std_ulogic_vector ;
   subtype ActualType   is std_ulogic_vector ;
@@ -1596,8 +1596,8 @@ package body ScoreBoardPkg_slv is
       constant Tag    : in  string ;
       constant Item   : in  ExpectedType
     ) is
-      variable ExpectedPtr : ExpectedPointerType ;
-      variable TagPtr : line ;
+      -- variable ExpectedPtr : ExpectedPointerType ;
+      -- variable TagPtr : line ;
     begin
       if LocalOutOfRange(Index, "Push") then
         return ; -- error reporting in LocalOutOfRange
@@ -2250,7 +2250,7 @@ package body ScoreBoardPkg_slv is
     -- Simple Tagged Scoreboard
     impure function Empty (Tag : String) return boolean is
     ------------------------------------------------------------
-      variable CurPtr : ListPointerType ;
+      -- variable CurPtr : ListPointerType ;
     begin
       return Empty(FirstIndexVar, Tag) ;
     end function Empty ;
@@ -2270,7 +2270,7 @@ package body ScoreBoardPkg_slv is
       FinishCheckCount   : integer ;
       FinishEmpty        : boolean
     ) is
-      variable EmptyError : Boolean ;
+      -- variable EmptyError : Boolean ;
       variable WriteBuf : line ;
     begin
       if AlertLogIDVar(Index) = OSVVM_SCOREBOARD_ALERTLOG_ID  then
@@ -2468,9 +2468,9 @@ package body ScoreBoardPkg_slv is
     procedure SetFinish (
     ------------------------------------------------------------
       Index       : integer ;
-      FCheckCount : integer ;
-      FEmpty      : boolean := TRUE;
-      FStatus     : boolean := TRUE
+      FCheckCount : integer ; -- vhdl-linter-disable-line unused
+      FEmpty      : boolean := TRUE; -- vhdl-linter-disable-line unused
+      FStatus     : boolean := TRUE -- vhdl-linter-disable-line unused
     ) is
     begin
       Alert(AlertLogIDVar(Index), "OSVVM.ScoreboardGenericPkg.SetFinish: Deprecated and removed.  See CheckFinish", ERROR) ;
@@ -2996,9 +2996,9 @@ package body ScoreBoardPkg_slv is
     constant ID           : in  ScoreboardIDType ;
     constant ExpectedData : in  ActualType
   ) is
-    variable Passed : boolean ;
+    variable Passed_unused : boolean ;
   begin
-    Passed := ScoreboardStore.CheckExpected(ID.ID, "", ExpectedData) ;
+    Passed_unused := ScoreboardStore.CheckExpected(ID.ID, "", ExpectedData) ;
   end procedure CheckExpected ;
 
   -- Simple Tagged Scoreboard
@@ -3007,9 +3007,9 @@ package body ScoreBoardPkg_slv is
     constant Tag          : in  string ;
     constant ExpectedData : in  ActualType
   ) is
-    variable Passed : boolean ;
+    variable Passed_unused : boolean ;
   begin
-    Passed := ScoreboardStore.CheckExpected(ID.ID, Tag, ExpectedData) ;
+    Passed_unused := ScoreboardStore.CheckExpected(ID.ID, Tag, ExpectedData) ;
   end procedure CheckExpected ;
 
   -- Simple Scoreboard, no tag
@@ -3302,14 +3302,14 @@ package body ScoreBoardPkg_slv is
   -- Generally these are not required.  When a simulation ends and
   -- another simulation is started, a simulator will release all allocated items.
   procedure Deallocate (
-    constant ID     : in  ScoreboardIDType
+    constant ID     : in  ScoreboardIDType -- vhdl-linter-disable-line unused
   ) is
   begin
     ScoreboardStore.Deallocate ;
   end procedure Deallocate ;
 
   procedure Initialize (
-    constant ID     : in  ScoreboardIDType
+    -- constant ID     : in  ScoreboardIDType
   ) is
   begin
     ScoreboardStore.Initialize ;
@@ -3354,7 +3354,7 @@ package body ScoreBoardPkg_slv is
   --     REPORT_ERROR:   Replaced by AlertLogPkg.SetLogEnable(AlertLogID, PASSED, FALSE)
   --     REPORT_NONE:    Replaced by AlertLogPkg.SetAlertEnable(AlertLogID, ERROR, FALSE)
   procedure SetReportMode (
-    constant ID           : in  ScoreboardIDType ;
+    constant ID           : in  ScoreboardIDType ; -- vhdl-linter-disable-line unused
     constant ReportModeIn : in  ScoreboardReportType
   ) is
   begin
@@ -3363,7 +3363,7 @@ package body ScoreBoardPkg_slv is
   end procedure SetReportMode ;
 
   impure function GetReportMode (
-    constant ID           : in  ScoreboardIDType
+    constant ID           : in  ScoreboardIDType -- vhdl-linter-disable-line unused
   ) return ScoreboardReportType is
   begin
 --    return ScoreboardStore.GetReportMode(ID.ID) ;

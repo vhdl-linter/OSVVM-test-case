@@ -139,7 +139,7 @@ package TbUtilPkg is
     signal Rdy  : In  bit ;
     signal Ack  : Out bit
   ) ;
-  
+
   -- Only for clockless models
   procedure WaitForTransaction (
     signal Rdy : in  bit ;
@@ -172,8 +172,8 @@ package TbUtilPkg is
 
 
   ------------------------------------------------------------
-  -- Interrupt handling variations of WaitForTransaction 
-  --   std_logic / std_logic 
+  -- Interrupt handling variations of WaitForTransaction
+  --   std_logic / std_logic
   ------------------------------------------------------------
   procedure WaitForTransaction (
     signal   Clk       : In  std_logic ;
@@ -199,8 +199,8 @@ package TbUtilPkg is
   function TransactionPending ( signal Rdy : In  std_logic ) return boolean ;
 
   ------------------------------------------------------------
-  -- Interrupt handling variations of WaitForTransaction 
-  --   RdyType/AckType 
+  -- Interrupt handling variations of WaitForTransaction
+  --   RdyType/AckType
   ------------------------------------------------------------
   -- Intended for models that need to switch between instruction streams
   -- such as a CPU when interrupt is pending
@@ -209,11 +209,11 @@ package TbUtilPkg is
     signal   Rdy      : In  RdyType ;
     signal   Ack      : In  AckType ;
     signal   IntReq   : In  std_logic ;
-    constant POLARITY : In  std_logic := '1' 
+    constant POLARITY : In  std_logic := '1'
   ) ;
 
   -- StartTransaction not used, Ack is incremented at transaction completion
---  procedure StartTransaction  ( signal Ack : Out AckType ) ; 
+--  procedure StartTransaction  ( signal Ack : Out AckType ) ;
 
   -- Increment Ack
   procedure FinishTransaction ( signal Ack : InOut AckType ) ;
@@ -555,7 +555,7 @@ package body TbUtilPkg is
     wait for 0 ns ; -- Allow transactions without time passing
   end procedure WaitForTransaction ;
 
-  -- Only for clockless models 
+  -- Only for clockless models
   procedure WaitForTransaction (
     signal Rdy  : In  std_logic ;
     signal Ack  : Out std_logic
@@ -618,7 +618,7 @@ package body TbUtilPkg is
     wait for 0 ns ; -- Allow transactions without time passing
   end procedure WaitForTransaction ;
 
-  -- Only for clockless models 
+  -- Only for clockless models
   procedure WaitForTransaction (
     signal Rdy  : in  bit ;
     signal Ack  : out bit
@@ -671,7 +671,7 @@ package body TbUtilPkg is
     end if ;
   end procedure WaitForTransaction ;
 
-  -- Only for clockless models 
+  -- Only for clockless models
   procedure WaitForTransaction (
     signal Rdy      : In    RdyType ;
     signal Ack      : InOut AckType
@@ -685,7 +685,7 @@ package body TbUtilPkg is
   end procedure WaitForTransaction ;
 
   ------------------------------------------------------------
-  -- WaitForTransaction 
+  -- WaitForTransaction
   --   Specializations for interrupt handling
   ------------------------------------------------------------
   procedure WaitForTransaction (
@@ -771,7 +771,7 @@ package body TbUtilPkg is
   end function TransactionPending ;
 
   ------------------------------------------------------------
-  -- WaitForTransaction - RdyType/AckType 
+  -- WaitForTransaction - RdyType/AckType
   --   Specializations for interrupt handling
   ------------------------------------------------------------
   -- Intended for models that need to switch between instruction streams
@@ -781,7 +781,7 @@ package body TbUtilPkg is
     signal   Rdy      : In  RdyType ;
     signal   Ack      : In  AckType ;
     signal   IntReq   : In  std_logic ;
-    constant POLARITY : In  std_logic := '1' 
+    constant POLARITY : In  std_logic := '1'
   ) is
   begin
     if (Ack = Rdy and IntReq /= POLARITY) then
@@ -1062,7 +1062,7 @@ package body TbUtilPkg is
 
   procedure WaitForClock ( signal Clk : in std_logic ;  constant NumberOfClocks : in integer := 1) is
   begin
-    for i in 1 to NumberOfClocks loop
+    for i in 1 to NumberOfClocks loop -- vhdl-linter-disable-line unused
       wait until Clk = CLK_ACTIVE ;
     end loop ;
   end procedure WaitForClock ;
@@ -1116,9 +1116,9 @@ package body TbUtilPkg is
   begin
     if HIGH_TIME = LOW_TIME then
  --     -- Set a 1 if not initialized, otherwise use initialized value.
- --     if Clk = 'U' then 
- --       Clk <= '1' ; 
- --       wait for 0 ns ; 
+ --     if Clk = 'U' then
+ --       Clk <= '1' ;
+ --       wait for 0 ns ;
  --     end if  ;
       loop
         Clk <= toggle_sl_table(Clk) after HIGH_TIME ;
@@ -1147,7 +1147,7 @@ package body TbUtilPkg is
     wait until EdgeActive(Clk, CLK_ACTIVE) ;
     LastLogTime := now ;
     -- Check First HowMany clocks
-    for i in 1 to HowMany loop
+    for i in 1 to HowMany loop -- vhdl-linter-disable-line unused
       wait until Clk = CLK_ACTIVE ;
       ObservedPeriod := now - LastLogTime ;
       AffirmIf(AlertLogID, ObservedPeriod = Period,
@@ -1195,7 +1195,7 @@ package body TbUtilPkg is
     signal   Reset       : in  std_logic ;
     constant ResetActive : in  std_logic ;
     constant ResetName   : in  string := "Reset" ;
-    constant LogLevel    : in  LogType := ALWAYS
+    constant LogLevel    : in  LogType := ALWAYS -- vhdl-linter-disable-line unused
   ) is
   begin
     -- Does not log the value of Reset at time 0.

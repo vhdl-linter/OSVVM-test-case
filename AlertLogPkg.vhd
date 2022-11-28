@@ -1271,7 +1271,7 @@ package body AlertLogPkg is
     impure function GetEnabledAlertCount(AlertLogID : AlertLogIDType := ALERTLOG_BASE_ID) return AlertCountType is
     ------------------------------------------------------------
       variable localAlertLogID : AlertLogIDType ;
-      variable Count : AlertCountType ;
+      variable Count : AlertCountType ; -- vhdl-linter-disable-line unused
     begin
       localAlertLogID := VerifyID(AlertLogID) ;
       return RemoveNonFailingWarnings( AlertLogPtr(localAlertLogID).AlertCount ) ;
@@ -1586,7 +1586,7 @@ package body AlertLogPkg is
       ReportWhenZero    : boolean ;
       HasDisabledErrors : boolean
     ) is
-      variable buf : line ;
+      -- variable buf : line ;
       variable CurID : AlertLogIDType ;
       variable HasErrors : boolean ;
     begin
@@ -2169,7 +2169,7 @@ package body AlertLogPkg is
       AlertCount           : AlertCountType ;
       AffirmCount          : integer ;
       PassedCount          : integer ;
-      Delimiter            : string
+      Delimiter            : string -- vhdl-linter-disable-line unused
     ) is
       variable buf : line ;
       -- constant ReportPrefix    : string := ResolveOsvvmWritePrefix(ReportPrefixVar.GetOpt ) ;
@@ -2239,7 +2239,7 @@ package body AlertLogPkg is
     ------------------------------------------------------------
     procedure ReportTestSummaries is
     ------------------------------------------------------------
-      variable IgnoredValue, OldReportJustifyAmount : integer ;
+      variable IgnoredValue, OldReportJustifyAmount : integer ; -- vhdl-linter-disable-line unused
       constant Separator : string := ResolveOsvvmIdSeparator(IdSeparatorVar.GetOpt) ;
     begin
       OldReportJustifyAmount  := ReportJustifyAmountVar ;
@@ -2331,7 +2331,7 @@ package body AlertLogPkg is
       variable MultiLineComment      : boolean := FALSE ;
       variable PassedGoal            : integer ;
       variable PassedGoalSet         : boolean ;
-      variable Char                  : character ;
+      -- variable Char                  : character ;
       constant DELIMITER             : character := ',' ;
       variable AlertLogID            : AlertLogIDType ;
     begin
@@ -2899,7 +2899,7 @@ package body AlertLogPkg is
     -- suppress the resize and copy in autosizes.
     procedure SetNumAlertLogIDs (NewNumAlertLogIDs : AlertLogIDType) is
     ------------------------------------------------------------
-      variable oldAlertLogPtr : AlertLogArrayPtrType ;
+      -- variable oldAlertLogPtr : AlertLogArrayPtrType ;
     begin
       if NewNumAlertLogIDs > NumAllocatedAlertLogIDsVar then
         GrowAlertStructure(NewNumAlertLogIDs) ;
@@ -6386,7 +6386,7 @@ package body AlertLogPkg is
   end procedure ReadLogEnables ;
 
   ------------------------------------------------------------
-  procedure ReadLogEnables (FileName : string) is
+  procedure ReadLogEnables (FileName : string) is -- vhdl-linter-disable-line unused
   ------------------------------------------------------------
     file AlertLogInitFile : text open READ_MODE is FileName ;
   begin

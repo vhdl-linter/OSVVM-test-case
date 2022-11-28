@@ -87,7 +87,7 @@ package body MessagePkg is
     ------------------------------------------------------------
     procedure Set (MessageIn : String) is
     ------------------------------------------------------------
-      variable NamePtr : line ;
+      -- variable NamePtr : line ;
       variable OldMaxMessageCount : integer ;
       variable OldMessagePtr : LineArrayPtrType ;
     begin
@@ -139,7 +139,7 @@ package body MessagePkg is
     ------------------------------------------------------------
     procedure Deallocate is  -- clear message
     ------------------------------------------------------------
-      variable CurPtr : LineArrayPtrType ;
+      -- variable CurPtr : LineArrayPtrType ;
     begin
       for i in 1 to MessageCount loop
         deallocate( MessagePtr(i) ) ;

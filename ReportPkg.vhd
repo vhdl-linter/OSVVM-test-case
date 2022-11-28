@@ -9,7 +9,7 @@
 --
 --  Description:
 --        Generate Final Reports
---        Elements of these reports come from AlertLogPkg, CoveragePkg, and 
+--        Elements of these reports come from AlertLogPkg, CoveragePkg, and
 --        the ScoreboardGenericPkg instances of ScoreboardPkg_int and ScoreboardPkg_slv
 --
 --  Developed for:
@@ -49,7 +49,7 @@ package ReportPkg is
 
   impure function EndOfTestReports (
     ReportAll      : boolean        := FALSE ;
-    ExternalErrors : AlertCountType := (0,0,0) 
+    ExternalErrors : AlertCountType := (0,0,0)
   ) return integer ;
 
   procedure EndOfTestReports (
@@ -57,7 +57,7 @@ package ReportPkg is
     ExternalErrors : AlertCountType := (0,0,0) ;
     Stop           : boolean        := FALSE
   ) ;
-  
+
   alias EndOfTestSummary is EndOfTestReports[boolean, AlertCountType return integer] ;
   alias EndOfTestSummary is EndOfTestReports[boolean, AlertCountType, boolean] ;
 
@@ -80,12 +80,12 @@ package body ReportPkg is
     file OsvvmYamlFile : text open APPEND_MODE is FileName ;
     variable buf : line ;
   begin
-    if GotCoverage then 
-      swrite(buf, "        FunctionalCoverage: " & to_string(GetCov, 2)) ; 
+    if GotCoverage then
+      swrite(buf, "        FunctionalCoverage: " & to_string(GetCov, 2)) ;
     else
-      swrite(buf, "        FunctionalCoverage:  ") ; 
-    end if ; 
-    writeline(OsvvmYamlFile, buf) ; 
+      swrite(buf, "        FunctionalCoverage:  ") ;
+    end if ;
+    writeline(OsvvmYamlFile, buf) ;
     file_close(OsvvmYamlFile) ;
   end procedure WriteCovSummaryYaml ;
 
@@ -93,41 +93,41 @@ package body ReportPkg is
   impure function EndOfTestReports (
   ------------------------------------------------------------
     ReportAll      : boolean        := FALSE ;
-    ExternalErrors : AlertCountType := (0,0,0) 
+    ExternalErrors : AlertCountType := (0,0,0)
   ) return integer is
   begin
-    ReportAlerts(ExternalErrors => ExternalErrors, ReportAll => ReportAll) ; 
-    
-    if GotCoverage then 
+    ReportAlerts(ExternalErrors => ExternalErrors, ReportAll => ReportAll) ;
+
+    if GotCoverage then
       WriteCovYaml (
         FileName      => REPORTS_DIRECTORY &  GetAlertLogName & "_cov.yml"
       ) ;
-    end if ; 
-    
-    if work.ScoreboardPkg_slv.GotScoreboards then 
+    end if ;
+
+    if work.ScoreboardPkg_slv.GotScoreboards then
       work.ScoreboardPkg_slv.WriteScoreboardYaml (
         FileName     => REPORTS_DIRECTORY &  GetAlertLogName & "_sb_slv.yml"
       ) ;
-    end if ; 
-    
-    if work.ScoreboardPkg_int.GotScoreboards then 
+    end if ;
+
+    if work.ScoreboardPkg_int.GotScoreboards then
       work.ScoreboardPkg_int.WriteScoreboardYaml (
         FileName     => REPORTS_DIRECTORY &  GetAlertLogName & "_sb_int.yml"
       ) ;
-    end if ; 
-    
+    end if ;
+
     -- Summarize Alerts Last to allow previous steps to update Alerts
     WriteAlertSummaryYaml(
-      FileName        => "OsvvmRun.yml", 
+      FileName        => "OsvvmRun.yml",
       ExternalErrors  => ExternalErrors
-    ) ; 
+    ) ;
     WriteCovSummaryYaml (
       FileName        => "OsvvmRun.yml"
     ) ;
     WriteAlertYaml (
-      FileName        => REPORTS_DIRECTORY &  GetAlertLogName & "_alerts.yml", 
+      FileName        => REPORTS_DIRECTORY &  GetAlertLogName & "_alerts.yml",
       ExternalErrors  => ExternalErrors
-    ) ; 
+    ) ;
 
     return SumAlertCount(GetAlertCount + ExternalErrors) ;
   end function EndOfTestReports ;
@@ -139,11 +139,11 @@ package body ReportPkg is
     ExternalErrors : AlertCountType := (0,0,0) ;
     Stop           : boolean        := FALSE
   ) is
-    variable ErrorCount : integer ; 
+    variable ErrorCount : integer ;  -- vhdl-linter-disable-line unused
   begin
     ErrorCount := EndOfTestReports(ReportAll, ExternalErrors) ;
-    if Stop then 
-      std.env.stop ; 
+    if Stop then
+      std.env.stop ;
     end if ;
   end procedure EndOfTestReports ;
 
