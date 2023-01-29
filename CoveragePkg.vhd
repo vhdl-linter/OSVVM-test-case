@@ -2005,7 +2005,8 @@ package body CoveragePkg is
     variable BinVal : RangeArrayType(aCrossBins'range) ;
   begin
     for i in aCrossBins'range loop
-      BinVal(i to i) := aCrossBins(i).BinVal ;
+      -- TODO: improve the handling of alias in eleaborate-selected-name
+      BinVal(i to i) := aCrossBins(i).BinVal ; -- vhdl-linter-disable-line parser
     end loop ;
     return BinVal ;
   end function MergeBinVal ;
