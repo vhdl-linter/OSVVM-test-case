@@ -2006,7 +2006,7 @@ package body CoveragePkg is
   begin
     for i in aCrossBins'range loop
       -- TODO: improve the handling of alias in eleaborate-selected-name
-      BinVal(i to i) := aCrossBins(i).BinVal ; -- vhdl-linter-disable-line parser
+      BinVal(i to i) := aCrossBins(i).BinVal ; -- vhdl-linter-disable-line elaborate
     end loop ;
     return BinVal ;
   end function MergeBinVal ;
