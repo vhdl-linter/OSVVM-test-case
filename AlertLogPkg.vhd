@@ -1888,7 +1888,7 @@ package body AlertLogPkg is
     ) is
       -- Format:  Action Count min1 max1 min2 max2
       variable TotalErrors : integer ;
-      variable TotalAlertCount : AlertCountType ;
+      variable TotalAlertCount : AlertCountType ; -- vhdl-linter-disable-line unused
       variable TotalRequirementsPassed, TotalRequirementsCount : integer ;
     begin
       CalcTopTotalErrors (
