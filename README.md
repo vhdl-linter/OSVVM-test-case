@@ -1,7 +1,7 @@
-# The OSVVM VHDL Verification Utility Library 
-The [OSVVM VHDL verification utility library](https://github.com/osvvm/osvvm) implements advanced verification capabilities that are simple to use and feel like built-in language features.  These include:   
+# The OSVVM VHDL Verification Utility Library
+The [OSVVM VHDL verification utility library](https://github.com/osvvm/osvvm) implements advanced verification capabilities that are simple to use and feel like built-in language features.  These include:
 
-  - Transaction-Level Modeling (TbUtilPkg, ResolutionPkg)
+  - Transaction-Level Modeling (TbUtilPkg, ResolutionPkg_different)
   - Constrained Random test generation (RandomPkg)
   - Functional Coverage with hooks for UCIS coverage database integration (CoveragePkg)
   - Intelligent Coverage Random test generation  (CoveragePkg)
@@ -12,38 +12,38 @@ The [OSVVM VHDL verification utility library](https://github.com/osvvm/osvvm) im
   - Message filtering - Logs (AlertLogPkg)
   - Scoreboards and FIFOs (data structures for verification) (ScoreboardGenericPkg)
   - Memory models (MemoryPkg)
-  - Test Reporting - Test Suite and Test Case in HTML 
+  - Test Reporting - Test Suite and Test Case in HTML
   - Continuous Integration (CI/CD) Support - with JUnit XML reports
- 
+
 ## Release History
    For current release information see [CHANGELOG.md](CHANGELOG.md)
-   
+
 ## Learning OSVVM
 You can find an overview of OSVVM at [osvvm.github.io](https://osvvm.github.io).
-Alternately you can find our pdf documentation at 
+Alternately you can find our pdf documentation at
 [OSVVM Documentation Repository](https://github.com/OSVVM/Documentation#readme).
 
 You can also learn OSVVM by taking the class, [Advanced VHDL Verification and Testbenches - OSVVM&trade; BootCamp](https://synthworks.com/vhdl_testbench_verification.htm)
- 
+
 ## Download OSVVM Libraries
-OSVVM is available as either a git repository 
-[OsvvmLibraries](https://github.com/osvvm/OsvvmLibraries) 
+OSVVM is available as either a git repository
+[OsvvmLibraries](https://github.com/osvvm/OsvvmLibraries)
 or a zip file from [osvvm.org Downloads Page](https://osvvm.org/downloads).
 
 On GitHub, all OSVVM libraries are a submodule of the repository OsvvmLibraries. Download all OSVVM libraries using git clone with the “–recursive” flag:
-```    
+```
   $ git clone --recursive https://github.com/osvvm/OsvvmLibraries
 ```
-        
-Alternately to get just the OSVVM verification utility library use:  
+
+Alternately to get just the OSVVM verification utility library use:
         `$ git clone https://github.com/OSVVM/OSVVM`
 
 ## Run The Demos
 A great way to get oriented with OSVVM is to run the demos.
 For directions on running the demos, see [OSVVM Scripts](https://github.com/osvvm/OSVVM-Scripts#readme).
 
-## Participating and Project Organization 
-The OSVVM project welcomes your participation with either 
+## Participating and Project Organization
+The OSVVM project welcomes your participation with either
 issue reports or pull requests.
 
 You can find the project [Authors here](AUTHORS.md) and
@@ -56,14 +56,14 @@ as submodules of [OsvvmLibraries](https://github.com/osvvm/OsvvmLibraries).
 
 ## More Information on OSVVM
 
-**OSVVM Forums and Blog:**     [http://www.osvvm.org/](http://www.osvvm.org/)   
-**Gitter:** [https://gitter.im/OSVVM/Lobby](https://gitter.im/OSVVM/Lobby)  
-**Documentation:** [osvvm.github.io](https://osvvm.github.io)    
-**Documentation:** [PDF Documentation](https://github.com/OSVVM/Documentation)  
+**OSVVM Forums and Blog:**     [http://www.osvvm.org/](http://www.osvvm.org/)
+**Gitter:** [https://gitter.im/OSVVM/Lobby](https://gitter.im/OSVVM/Lobby)
+**Documentation:** [osvvm.github.io](https://osvvm.github.io)
+**Documentation:** [PDF Documentation](https://github.com/OSVVM/Documentation)
 
 ## Copyright and License
-Copyright (C) 2006-2022 by [SynthWorks Design Inc.](http://www.synthworks.com/)  
-Copyright (C) 2022 by [OSVVM Authors](AUTHORS.md)   
+Copyright (C) 2006-2022 by [SynthWorks Design Inc.](http://www.synthworks.com/)
+Copyright (C) 2022 by [OSVVM Authors](AUTHORS.md)
 
 This file is part of OSVVM.
 
@@ -78,5 +78,3 @@ This file is part of OSVVM.
     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
     See the License for the specific language governing permissions and
     limitations under the License.
-
-

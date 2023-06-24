@@ -1,6 +1,6 @@
 --
---  File Name:         ResolutionPkg.vhd
---  Design Unit Name:  ResolutionPkg
+--  File Name:         ResolutionPkg_different.vhd
+--  Design Unit Name:  ResolutionPkg_different
 --  Revision:          STANDARD VERSION
 --
 --  Maintainer:        Jim Lewis      email:  jim@SynthWorks.com
@@ -24,7 +24,7 @@
 --                         Downsizing now permitted when it does not change the value.
 --    01/2020   2020.01    Updated Licenses to Apache
 --    11/2016   2016.11    Removed Asserts as they are not working as intended.
---                         See ResolutionPkg_debug as it uses Alerts to correctly detect errors
+--                         See ResolutionPkg_different_debug as it uses Alerts to correctly detect errors
 --    05/2015   2015.05    Added Alerts
 --    --                   Replaced Alerts with asserts as alerts are illegal in pure functions
 --    02/2009   1.0        VHDL-2008 STANDARD VERSION
@@ -53,7 +53,7 @@ library ieee ;
 use ieee.std_logic_1164.all ;
 use ieee.numeric_std.all ;
 
-package ResolutionPkg is
+package ResolutionPkg_different is
   constant MULTIPLE_DRIVER_SEVERITY : severity_level := ERROR ;
 
 --
@@ -152,8 +152,8 @@ package ResolutionPkg is
   function resolved ( s : boolean_vector) return boolean ;  --same as resolved_max
   subtype  resolved_boolean is resolved boolean ;
 
-end package ResolutionPkg ;
-package body ResolutionPkg is
+end package ResolutionPkg_different ;
+package body ResolutionPkg_different is
 
   -- resolved_max
   -- return maximum value.  Assert FAILURE if more than 1 /= type'left
@@ -309,8 +309,8 @@ package body ResolutionPkg is
         result := maximum(s(i),result);
       end if ;
     end loop ;
-    assert not failed report "ResolutionPkg.resolved: multiple drivers on integer" severity MULTIPLE_DRIVER_SEVERITY ;
-    -- AlertIf(OSVVM_ALERTLOG_ID, failed, "ResolutionPkg.resolved: multiple drivers on integer") ;
+    assert not failed report "ResolutionPkg_different.resolved: multiple drivers on integer" severity MULTIPLE_DRIVER_SEVERITY ;
+    -- AlertIf(OSVVM_ALERTLOG_ID, failed, "ResolutionPkg_different.resolved: multiple drivers on integer") ;
     return result ;
   end function resolved ;
 
@@ -327,8 +327,8 @@ package body ResolutionPkg is
         result := maximum(s(i),result);
       end if ;
     end loop ;
-    assert not failed report "ResolutionPkg.resolved: multiple drivers on time" severity MULTIPLE_DRIVER_SEVERITY ;
-    -- AlertIf(OSVVM_ALERTLOG_ID, failed, "ResolutionPkg.resolved: multiple drivers on time") ;
+    assert not failed report "ResolutionPkg_different.resolved: multiple drivers on time" severity MULTIPLE_DRIVER_SEVERITY ;
+    -- AlertIf(OSVVM_ALERTLOG_ID, failed, "ResolutionPkg_different.resolved: multiple drivers on time") ;
     return result ;
   end function resolved ;
 
@@ -345,8 +345,8 @@ package body ResolutionPkg is
         result := maximum(s(i),result);
       end if ;
     end loop ;
-    assert not failed report "ResolutionPkg.resolved: multiple drivers on real" severity MULTIPLE_DRIVER_SEVERITY ;
-    -- AlertIf(OSVVM_ALERTLOG_ID, failed, "ResolutionPkg.resolved: multiple drivers on real") ;
+    assert not failed report "ResolutionPkg_different.resolved: multiple drivers on real" severity MULTIPLE_DRIVER_SEVERITY ;
+    -- AlertIf(OSVVM_ALERTLOG_ID, failed, "ResolutionPkg_different.resolved: multiple drivers on real") ;
     return result ;
   end function resolved ;
 
@@ -363,8 +363,8 @@ package body ResolutionPkg is
         result := maximum(result, s(i)) ;
       end if ;
     end loop ;
-    assert not failed report "ResolutionPkg.resolved: multiple drivers on character" severity MULTIPLE_DRIVER_SEVERITY ;
-    -- AlertIf(OSVVM_ALERTLOG_ID, failed, "ResolutionPkg.resolved: multiple drivers on character") ;
+    assert not failed report "ResolutionPkg_different.resolved: multiple drivers on character" severity MULTIPLE_DRIVER_SEVERITY ;
+    -- AlertIf(OSVVM_ALERTLOG_ID, failed, "ResolutionPkg_different.resolved: multiple drivers on character") ;
     return result ;
   end function resolved ;
 
@@ -381,9 +381,9 @@ package body ResolutionPkg is
         result := TRUE ;
       end if ;
     end loop ;
-    assert not failed report "ResolutionPkg.resolved: multiple drivers on boolean" severity MULTIPLE_DRIVER_SEVERITY ;
-    -- AlertIf(OSVVM_ALERTLOG_ID, failed, "ResolutionPkg.resolved: multiple drivers on boolean") ;
+    assert not failed report "ResolutionPkg_different.resolved: multiple drivers on boolean" severity MULTIPLE_DRIVER_SEVERITY ;
+    -- AlertIf(OSVVM_ALERTLOG_ID, failed, "ResolutionPkg_different.resolved: multiple drivers on boolean") ;
     return result ;
   end function resolved ;
 
-end package body ResolutionPkg ;
+end package body ResolutionPkg_different ;

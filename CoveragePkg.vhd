@@ -121,9 +121,9 @@ use work.AlertLogPkg.all ;
 use work.RandomBasePkg.all ;
 use work.RandomProcedurePkg.all ;
 use work.RandomPkg.all ;
-use work.NamePkg.all ;
+use work.NamePkg_different.all ;
 use work.NameStorePkg.all ;
-use work.MessageListPkg.all ;
+use work.MessageListPkg_different.all ;
 use work.OsvvmGlobalPkg.all ;
 use work.VendorCovApiPkg.all ;
 

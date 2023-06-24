@@ -1,6 +1,6 @@
 --
---  File Name:         MessageListPkg.vhd
---  Design Unit Name:  MessageListPkg
+--  File Name:         MessageListPkg_different.vhd
+--  Design Unit Name:  MessageListPkg_different
 --  Revision:          STANDARD VERSION
 --
 --  Maintainer:        Jim Lewis      email:  jim@synthworks.com
@@ -43,7 +43,7 @@
 library ieee ;
 use std.textio.all ;
 
-package MessageListPkg is
+package MessageListPkg_different is
   type MessageStructType ;
   type MessageStructPtrType is access MessageStructType ;
   type MessageStructType is record
@@ -57,13 +57,13 @@ package MessageListPkg is
   procedure GetMessageCount   (variable Message : inout MessageStructPtrType; variable Count : out integer) ;
   procedure DeallocateMessage (variable Message : inout MessageStructPtrType) ;
 
-end package MessageListPkg ;
+end package MessageListPkg_different ;
 
 --- ///////////////////////////////////////////////////////////////////////////
 --- ///////////////////////////////////////////////////////////////////////////
 --- ///////////////////////////////////////////////////////////////////////////
 
-package body MessageListPkg is
+package body MessageListPkg_different is
 
   ------------------------------------------------------------
   procedure SetMessage (variable Message : inout MessageStructPtrType; Name : String) is
@@ -139,4 +139,4 @@ package body MessageListPkg is
     end loop ;
   end procedure DeallocateMessage ;
 
-end package body MessageListPkg ;
+end package body MessageListPkg_different ;

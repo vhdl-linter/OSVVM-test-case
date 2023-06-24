@@ -25,21 +25,21 @@
 #
 #
 #  This file is part of OSVVM.
-#  
-#  Copyright (c) 2016 - 2021 by SynthWorks Design Inc.  
-#  
+#
+#  Copyright (c) 2016 - 2021 by SynthWorks Design Inc.
+#
 #  Licensed under the Apache License, Version 2.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-#  
+#
 #      https://www.apache.org/licenses/LICENSE-2.0
-#  
+#
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
-#  
+#
 #
 # Update OSVVM_DIR to match your environment:
 set OSVVM_LIB_NAME osvvm
@@ -48,8 +48,8 @@ if {$argc > 0} {
   set OSVVM_DIR $1
 }
 
-vcom -2008 -work ${OSVVM_LIB_NAME}  ${OSVVM_DIR}/ResolutionPkg.vhd
-vcom -2008 -work ${OSVVM_LIB_NAME}  ${OSVVM_DIR}/NamePkg.vhd
+vcom -2008 -work ${OSVVM_LIB_NAME}  ${OSVVM_DIR}/ResolutionPkg_different.vhd
+vcom -2008 -work ${OSVVM_LIB_NAME}  ${OSVVM_DIR}/NamePkg_different.vhd
 vcom -2008 -work ${OSVVM_LIB_NAME}  ${OSVVM_DIR}/NameStorePkg.vhd
 vcom -2008 -work ${OSVVM_LIB_NAME}  ${OSVVM_DIR}/OsvvmGlobalPkg.vhd
 
@@ -79,5 +79,4 @@ vcom -2008 -work ${OSVVM_LIB_NAME}  ${OSVVM_DIR}/ScoreboardPkg_int.vhd
 vcom -2008 -work ${OSVVM_LIB_NAME}  ${OSVVM_DIR}/ResizePkg.vhd
 vcom -2008 -work ${OSVVM_LIB_NAME}  ${OSVVM_DIR}/TbUtilPkg.vhd
 
-vcom -2008 -work ${OSVVM_LIB_NAME}  ${OSVVM_DIR}/OsvvmContext.vhd 
-
+vcom -2008 -work ${OSVVM_LIB_NAME}  ${OSVVM_DIR}/OsvvmContext.vhd

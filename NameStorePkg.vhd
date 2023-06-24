@@ -21,7 +21,7 @@
 --    Date      Version    Description
 --    02/2022   2022.02    Updated NewID for Updated NewID and Find with ParentID and Search.
 --                         Supports searching in CoveragePkg, ScoreboardGenericPkg, and MemoryPkg.
---    06/2021   2021.06    Initial revision.  Derrived from NamePkg.vhd
+--    06/2021   2021.06    Initial revision.  Derrived from NamePkg_different.vhd
 --
 --
 --  This file is part of OSVVM.
@@ -42,7 +42,7 @@
 --
 
 use std.textio.all ;
-use work.ResolutionPkg.all ;
+use work.ResolutionPkg_different.all ;
 use work.AlertLogPkg.all ;
 
 package NameStorePkg is

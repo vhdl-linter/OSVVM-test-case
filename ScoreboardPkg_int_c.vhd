@@ -79,9 +79,9 @@ library ieee ;
   use work.TranscriptPkg.all ;
   use work.TextUtilPkg.all ;
   use work.AlertLogPkg.all ;
-  use work.NamePkg.all ;
+  use work.NamePkg_different.all ;
   use work.NameStorePkg.all ;
-  use work.ResolutionPkg.all ;
+  use work.ResolutionPkg_different.all ;
 
 
 package ScoreBoardPkg_int is

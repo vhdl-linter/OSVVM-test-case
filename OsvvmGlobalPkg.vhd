@@ -47,7 +47,7 @@
 library ieee ;
 use std.textio.all ;
 
-use work.NamePkg.all ;
+use work.NamePkg_different.all ;
 
 package OsvvmGlobalPkg is
   -- FILE IO Global File Identifier -- Open using AlertLogPkg.TranscriptOpen

@@ -59,7 +59,7 @@ library IEEE ;
   use work.TranscriptPkg.all ;
   use work.AlertLogPkg.all ;
   use work.NameStorePkg.all ;
-  use work.ResolutionPkg.all ;
+  use work.ResolutionPkg_different.all ;
 
   use work.MemorySupportPkg.all ;
 

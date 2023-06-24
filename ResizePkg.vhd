@@ -3,50 +3,50 @@
 --  Design Unit Name:  ResizePkg
 --  Revision:          STANDARD VERSION
 --
---  Maintainer:        Jim Lewis      email:  jim@SynthWorks.com 
---  Contributor(s):            
---     Jim Lewis      email:  jim@SynthWorks.com   
+--  Maintainer:        Jim Lewis      email:  jim@SynthWorks.com
+--  Contributor(s):
+--     Jim Lewis      email:  jim@SynthWorks.com
 --
 --  Package Defines
 --      Resizing for transaction records
---    
---  Developed for: 
---        SynthWorks Design Inc. 
+--
+--  Developed for:
+--        SynthWorks Design Inc.
 --        VHDL Training Classes
 --        11898 SW 128th Ave.  Tigard, Or  97223
 --        http://www.SynthWorks.com
 --
 --  Revision History:
 --    Date      Version    Description
---    06/2021   2021.06    Refactored from ResolutionPkg
+--    06/2021   2021.06    Refactored from ResolutionPkg_different
 --
 --
 --  This file is part of OSVVM.
---  
---  Copyright (c) 2005 - 2021 by SynthWorks Design Inc.  
---  
+--
+--  Copyright (c) 2005 - 2021 by SynthWorks Design Inc.
+--
 --  Licensed under the Apache License, Version 2.0 (the "License");
 --  you may not use this file except in compliance with the License.
 --  You may obtain a copy of the License at
---  
+--
 --      https://www.apache.org/licenses/LICENSE-2.0
---  
+--
 --  Unless required by applicable law or agreed to in writing, software
 --  distributed under the License is distributed on an "AS IS" BASIS,
 --  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 --  See the License for the specific language governing permissions and
 --  limitations under the License.
---  
+--
 
 
-library ieee ; 
-use ieee.std_logic_1164.all ; 
-use ieee.numeric_std.all ; 
+library ieee ;
+use ieee.std_logic_1164.all ;
+use ieee.numeric_std.all ;
 
-use work.AlertLogPkg.all ; 
-use work.ResolutionPkg.all ; 
+use work.AlertLogPkg.all ;
+use work.ResolutionPkg_different.all ;
 
-package ResizePkg is 
+package ResizePkg is
   --
   -- ToTransaction and FromTransaction
   -- Convert from Common types to their corresponding _max_c type
@@ -64,19 +64,19 @@ package ResizePkg is
   function        FromTransaction (A: std_logic_vector_max_c) return std_logic_vector ;
   impure function FromTransaction (A: std_logic_vector_max_c ; Size : natural) return std_logic_vector ;
   function        FromTransaction (A: std_logic_vector_max_c) return integer ;
-  
+
   --
-  -- ToTransaction and FromTransaction for _max provided to support a 
+  -- ToTransaction and FromTransaction for _max provided to support a
   -- common methodology, conversions are not needed
   function        ToTransaction(A : std_logic_vector) return std_logic_vector_max ;
   impure function ToTransaction(A : std_logic_vector ; Size : natural) return std_logic_vector_max ;
   function        ToTransaction(A : integer; Size : natural) return std_logic_vector_max ;
   function        FromTransaction (A: std_logic_vector_max) return std_logic_vector ;
   impure function FromTransaction (A: std_logic_vector_max ; Size : natural) return std_logic_vector ;
-  function        FromTransaction (A: std_logic_vector_max) return integer ;    
-  
+  function        FromTransaction (A: std_logic_vector_max) return integer ;
+
 end package ResizePkg ;
-package body ResizePkg is 
+package body ResizePkg is
 
   --
   -- ToTransaction and FromTransaction
@@ -94,7 +94,7 @@ package body ResizePkg is
   begin
     return aA(Size-1 downto 0) ;
   end function Reduce ;
-  
+
   -- SafeResize - handles std_logic_vector as unsigned
   impure function LocalSafeResize(A : std_logic_vector; Size : natural) return std_logic_vector is
     variable Result : std_logic_vector(Size-1 downto 0) := (others => '0') ;
@@ -107,16 +107,16 @@ package body ResizePkg is
       -- Reduce A and Error if any extra bits of A are a '1'
       AlertIf((OR aA(A'length-1 downto Size) = '1'), "ToTransaction/FromTransaction, threw away a 1") ;
       Result := aA(Size-1 downto 0) ;
-    end if ;    
+    end if ;
     return Result ;
   end function LocalSafeResize ;
- 
+
   impure function SafeResize(A : std_logic_vector; Size : natural) return std_logic_vector is
   begin
     return LocalSafeResize(A, Size) ;
   end function SafeResize ;
 
- 
+
   impure function SafeResize(A : std_logic_vector; Size : natural) return std_logic_vector_max_c is
   begin
     return std_logic_vector_max_c(LocalSafeResize(A, Size)) ;
@@ -157,9 +157,9 @@ package body ResizePkg is
   begin
     return to_integer(signed(A)) ;
   end function FromTransaction ;
-  
+
   ----------------------
-  -- Support for _max provided to support a common methodology, 
+  -- Support for _max provided to support a common methodology,
   -- conversions are not needed
   function ToTransaction(A : std_logic_vector) return std_logic_vector_max is
   begin
@@ -189,6 +189,6 @@ package body ResizePkg is
   function FromTransaction (A: std_logic_vector_max) return integer is
   begin
     return to_integer(signed(A)) ;
-  end function FromTransaction ;  
-  
+  end function FromTransaction ;
+
 end package body ResizePkg ;

@@ -1,6 +1,6 @@
 --
---  File Name:         OsvvmTypesPkg.vhd
---  Design Unit Name:  OsvvmTypesPkg
+--  File Name:         OsvvmTypesPkg_different.vhd
+--  Design Unit Name:  OsvvmTypesPkg_different
 --  Revision:          STANDARD VERSION
 --
 --  Maintainer:        Jim Lewis      email:  jim@synthworks.com
@@ -39,12 +39,11 @@
 
 
 use std.textio.all ;
-library ieee ; 
-use ieee.std_logic_1164.all ; 
+library ieee ;
+use ieee.std_logic_1164.all ;
 
-package OsvvmTypesPkg is
+package OsvvmTypesPkg_different is
 
-  type slv_vector is array (integer range <>) of std_logic_vector ; 
-  
-end OsvvmTypesPkg ;
+  type slv_vector is array (integer range <>) of std_logic_vector ;
 
+end OsvvmTypesPkg_different ;

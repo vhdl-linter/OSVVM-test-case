@@ -56,7 +56,7 @@ library ieee ;
 
   use work.AlertLogPkg.all ;
   use work.TranscriptPkg.all ;
-  use work.ResolutionPkg.all ;
+  use work.ResolutionPkg_different.all ;
   use work.OsvvmGlobalPkg.all ;
 
 package TbUtilPkg is
